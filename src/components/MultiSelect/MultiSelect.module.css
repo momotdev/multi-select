@@ -2,24 +2,34 @@
     display: flex;
     border: 1px solid #00000050;
     width: 100%;
-    height: 40px;
+    min-height: 40px;
     border-radius: 10px;
     justify-content: space-between;
     position: relative;
     background-color: #ffffff;
     cursor: pointer;
+    flex-wrap: wrap;
 }
+
+.select--active {}
 
 .arrow-wrapper {
     display: flex;
-    transform: rotate(90deg);
+    transform: rotate(0deg);
     margin-right: 10px;
+    transition: transform .3s;
+    align-items: center;
+}
+
+.select--active .arrow-wrapper {
+    transform: rotate(180deg);
 }
 
 .selected-options-wrapper {
     display: flex;
     align-items: center;
     padding: 0 5px;
+    flex-wrap: wrap;
 }
 
 .selected-option {
@@ -27,7 +37,7 @@
     background-color: #73dac1;
     border-radius: 10px;
     padding: 4px 7px;
-    margin: 0 2px;
+    margin: 2px 2px;
     cursor: default;
 }
 
@@ -48,7 +58,7 @@
     display: none;
 }
 
-.options-wrapper--active {
+.select--active .options-wrapper {
     display: block;
 }
 
