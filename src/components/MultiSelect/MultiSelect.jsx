@@ -1,8 +1,8 @@
 import classes from './MultiSelect.module.css';
 import {useEffect, useRef, useState} from "react";
 
-const MultiSelect = ({options, onChange}) => {
-	const [selectedOptions, setSelectedOptions] = useState([]);
+const MultiSelect = ({options, selectedOpts, onChange}) => {
+	const [selectedOptions, setSelectedOptions] = useState(selectedOpts);
 	const [activeOptions, setActiveOptions] = useState(options);
 	const [isListOpen, setIsListOpen] = useState(false);
 	const selectStyle = isListOpen ? [classes.select, classes['select--active']] : [classes.select];
@@ -42,6 +42,7 @@ const MultiSelect = ({options, onChange}) => {
 		setActiveOptions(options.filter(option => !selectedOptions.some(o => o === option.label)));
 		onChange(options.filter(option => selectedOptions.some(o => o === option.label)));
 	}, [selectedOptions, options, onChange])
+
 
 	useEffect(() => {
 		window.addEventListener("click", (event) =>  {
