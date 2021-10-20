@@ -9,10 +9,14 @@ function App() {
 		{value: 'DELIVERY', label: 'Delivery'},
 	]
 
+	const onChange = (value) => {
+		console.log(value)
+	}
+
 	return (
 		<div className="app">
 			<div className="content">
-				<MultiSelect options={options}/>
+				<MultiSelect options={options} onChange={onChange}/>
 			</div>
 		</div>
 	);
