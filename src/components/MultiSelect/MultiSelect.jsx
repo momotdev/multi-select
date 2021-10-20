@@ -45,12 +45,17 @@ const MultiSelect = ({options, selectedOpts, onChange}) => {
 
 
 	useEffect(() => {
-		window.addEventListener("click", (event) =>  {
+		const clickListener = (event) => {
 			const target = event.target;
 			if (!target.classList.contains(classes.select) && !isDescendant(select.current, target)) {
 				setIsListOpen(false);
 			}
-		});
+		}
+
+		window.addEventListener("click", clickListener);
+		return () => {
+			window.removeEventListener('click', clickListener);
+		}
 	}, [])
 
 	return (

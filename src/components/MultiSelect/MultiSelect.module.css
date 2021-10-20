@@ -34,7 +34,7 @@
 
 .selected-option {
     display: flex;
-    background-color: #73dac1;
+    border: 1px solid #00000050;
     border-radius: 10px;
     padding: 4px 7px;
     margin: 2px 2px;
@@ -47,6 +47,7 @@
     border-radius: 100%;
     padding: 0 3px;
     cursor: pointer;
+    color: red;
 }
 
 .options-wrapper {
@@ -74,7 +75,7 @@
 }
 
 .option:hover {
-    background-color: #61b7a2;
+    background-color: #dedede;
 }
 
 .option, .selected-option {

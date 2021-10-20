@@ -16,7 +16,7 @@ function App() {
 	return (
 		<div className="app">
 			<div className="content">
-				<MultiSelect options={options} selectedOpts={['Admin', 'Manager']} onChange={onChange} />
+				<MultiSelect options={options} selectedOpts={['Admin', 'Manager']} onChange={onChange}/>
 			</div>
 		</div>
 	);
