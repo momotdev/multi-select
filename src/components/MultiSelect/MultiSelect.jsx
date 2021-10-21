@@ -2,22 +2,21 @@ import classes from './MultiSelect.module.css';
 import {useEffect, useRef, useState} from "react";
 
 const MultiSelect = ({options, selectedOpts, onChange}) => {
-	const [selectedOptions, setSelectedOptions] = useState(selectedOpts);
 	const [activeOptions, setActiveOptions] = useState(options);
 	const [isListOpen, setIsListOpen] = useState(false);
 	const selectStyle = isListOpen ? [classes.select, classes['select--active']] : [classes.select];
 	const select = useRef();
 
 	const selectOption = (value) => {
-		if (selectedOptions.indexOf(value) === -1) {
-			setSelectedOptions([...selectedOptions, value]);
-			setActiveOptions(activeOptions.filter(option => option.label !== value))
+		if (selectedOpts.indexOf(value) === -1) {
+			onChange([...selectedOpts, value]);
+			setActiveOptions(activeOptions.filter(option => option.label !== value));
 		}
 	}
 
 	const deleteOption = (value) => {
-		if (selectedOptions.indexOf(value) !== -1) {
-			setSelectedOptions(selectedOptions.filter(option => option !== value));
+		if (selectedOpts.indexOf(value) !== -1) {
+			onChange(selectedOpts.filter(option => option !== value));
 		}
 	}
 
@@ -39,10 +38,8 @@ const MultiSelect = ({options, selectedOpts, onChange}) => {
 	}
 
 	useEffect(() => {
-		setActiveOptions(options.filter(option => !selectedOptions.some(o => o === option.label)));
-		onChange(options.filter(option => selectedOptions.some(o => o === option.label)));
-	}, [selectedOptions, options, onChange])
-
+		setActiveOptions(options.filter(option => !selectedOpts.some(o => o === option.label)));
+	}, [selectedOpts, options])
 
 	useEffect(() => {
 		const clickListener = (event) => {
@@ -61,10 +58,10 @@ const MultiSelect = ({options, selectedOpts, onChange}) => {
 	return (
 		<div ref={select} className={selectStyle.join(' ')} onClick={toggleOptionsList}>
 			<div className={classes['selected-options-wrapper']}>
-				{selectedOptions.map(option => <SelectedOption key={option} value={option} onDelete={deleteOption}/>)}
+				{selectedOpts.map(option => <SelectedOption key={option} value={option} onDelete={deleteOption}/>)}
 			</div>
 			<div className={classes['arrow-wrapper']}>
-				<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 7.33l2.829-2.83 9.175 9.339 9.167-9.339 2.829 2.83-11.996 12.17z"/></svg>
+				<svg xmlns="http://www.w3.org/2000/svg" height="18" viewBox="0 0 24 24"><path d="M0 7.33l2.829-2.83 9.175 9.339 9.167-9.339 2.829 2.83-11.996 12.17z"/></svg>
 			</div>
 			<div className={classes["options-wrapper"]}>
 				{activeOptions.map(option => <div key={option.value} onClick={() => selectOption(option.label)}
