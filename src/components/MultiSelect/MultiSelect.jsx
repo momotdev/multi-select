@@ -1,31 +1,35 @@
 import classes from './MultiSelect.module.css';
 import {useEffect, useRef, useState} from "react";
 
-const MultiSelect = ({options, onChange}) => {
+const MultiSelect = ({options, selectedOptions, onChange}) => {
 	const [isListOpen, setIsListOpen] = useState(false);
 	const selectStyle = isListOpen ? [classes.select, classes['select--active']] : [classes.select];
+	const [innerSelectedOptions,setInnerSelectedOptions] = useState([]);
 	const select = useRef();
 
-	const selectOption = (value) => {
-		onChange(options.map(option => option.label === value
-			? {...option, selected: true}
-			: option
-		));
-
-	}
-
-	const deleteOption = (value) => {
-		onChange(options.map(option => option.label === value
-			? {...option, selected: false}
+	const changeOptionSelectedState = (value, state) => {
+		onChange(innerSelectedOptions.map(option => option.label === value
+			? {...option, selected: state}
 			: option
 		));
 	}
 
 	const toggleOptionsList = () => {
-		if (options.some(option => option.selected === false)) {
+		if (innerSelectedOptions.some(option => option.selected === false)) {
 			setIsListOpen(!isListOpen);
 		}
 	}
+
+	const transformSelectedOptionsToObjects = (options, values) => {
+		return options.map(option =>
+			values.some(o => o === option.label)
+				? {...option, selected: true}
+				: {...option, selected: false})
+	}
+
+	useEffect(() => {
+		setInnerSelectedOptions(transformSelectedOptionsToObjects(options, selectedOptions));
+	}, [options, selectedOptions])
 
 	const isDescendant = (parent, child) => {
 		let node = child.parentNode;
@@ -55,8 +59,8 @@ const MultiSelect = ({options, onChange}) => {
 	return (
 		<div ref={select} className={selectStyle.join(' ')} onClick={toggleOptionsList}>
 			<div className={classes['selected-options-wrapper']}>
-				{options.map(option => option.selected
-					? <SelectedOption key={option.value} value={option.label} onDelete={deleteOption}/>
+				{innerSelectedOptions.map(option => option.selected
+					? <SelectedOption key={option.value} value={option.label} onDelete={changeOptionSelectedState}/>
 					: null
 				)}
 			</div>
@@ -66,9 +70,9 @@ const MultiSelect = ({options, onChange}) => {
 				</svg>
 			</div>
 			<div className={classes["options-wrapper"]}>
-				{options.map(option => option.selected
+				{innerSelectedOptions.map(option => option.selected
 					? null
-					: <div key={option.value} onClick={() => selectOption(option.label)}
+					: <div key={option.value} onClick={() => changeOptionSelectedState(option.label, true)}
 						   className={classes.option}>{option.label}</div>
 				)}
 			</div>
@@ -84,7 +88,7 @@ const SelectedOption = ({value, onDelete}) => {
 			}}>{value}</div>
 			<div className={classes['selected-option-delete']} onClick={(e) => {
 				e.stopPropagation();
-				onDelete(value);
+				onDelete(value, false);
 			}}>&times;</div>
 		</div>
 	)
