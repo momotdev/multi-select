@@ -1,14 +1,14 @@
 .select {
     display: flex;
     border: 1px solid #00000050;
-    width: 100%;
-    min-height: 40px;
+    min-height: 30px;
     border-radius: 10px;
     justify-content: space-between;
     position: relative;
     background-color: #ffffff;
     cursor: pointer;
     flex-wrap: wrap;
+    margin: 10px;
 }
 
 .select--active {}
@@ -36,18 +36,23 @@
     display: flex;
     border: 1px solid #00000050;
     border-radius: 10px;
-    padding: 4px 7px;
-    margin: 2px 2px;
+    padding: 3px 7px;
+    margin: 5px 2px;
     cursor: default;
+    font-size: 16px;
+    align-items: center;
 }
 
 .selected-option-delete {
     margin-left: 5px;
     background-color: #ffffff;
     border-radius: 100%;
-    padding: 0 3px;
+    padding: 9px 3px;
     cursor: pointer;
-    color: red;
+    color: black;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 0;
 }
 
 .options-wrapper {
@@ -64,7 +69,7 @@
 }
 
 .option {
-    font-size: 17px;
+    font-size: 16px;
     padding: 6px 5px;
     transition: background-color .1s;
     cursor: pointer;

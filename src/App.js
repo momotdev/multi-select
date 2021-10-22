@@ -6,10 +6,10 @@ function App() {
 	const [selectedOptions, setSelectedOptions] = useState(['ADMIN', 'USER']);
 
 	const options = [
-		{value: 'ADMIN', label: 'Admin'},
+		{value: 'ADMIN', label: 'Admin', badgeColor: '#ff6666'},
 		{value: 'USER', label: 'User'},
 		{value: 'MANAGER', label: 'Manager'},
-		{value: 'DELIVERY', label: 'Delivery'},
+		{value: 'DELIVERY', label: 'Delivery', badgeColor: '#009999'},
 	]
 
 	const onChange = (value) => {
