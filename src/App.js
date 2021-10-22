@@ -13,17 +13,21 @@ function App() {
 	]
 
 	const onChange = (value) => {
-		setSelectedOptions(value);
+		setSelectedOptions(value.filter(option => option.selected).map(option => option.label));
 	}
 
-	const getSelectLabels = (options, values) => {
-		return options.filter(option => values.some(o => o === option.label)).map(o => o.label);
+	const transformSelectedOptionsToObjects = (options, values) => {
+		return options.map(option =>
+			values.some(o => o === option.label)
+				? {...option, selected: true}
+				: {...option, selected: false})
 	}
 
 	return (
 		<div className="app">
 			<div className="content">
-				<MultiSelect options={options} selectedOpts={getSelectLabels(options, selectedOptions)} onChange={onChange}/>
+				<MultiSelect options={transformSelectedOptionsToObjects(options, selectedOptions)}
+							 onChange={onChange}/>
 			</div>
 		</div>
 	);
