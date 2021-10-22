@@ -3,7 +3,7 @@ import './styles/app.css';
 import {useState} from "react";
 
 function App() {
-	const [selectedOptions, setSelectedOptions] = useState(['Admin', 'User']);
+	const [selectedOptions, setSelectedOptions] = useState(['ADMIN', 'USER']);
 
 	const options = [
 		{value: 'ADMIN', label: 'Admin'},
@@ -13,7 +13,7 @@ function App() {
 	]
 
 	const onChange = (value) => {
-		setSelectedOptions(value.filter(option => option.selected).map(option => option.label));
+		setSelectedOptions(value.filter(option => option.selected).map(option => option.value));
 	}
 
 	return (
